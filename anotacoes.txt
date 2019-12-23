@@ -1,0 +1,259 @@
+// OQUE É O GITHUB E PARA QUE SERVE?
+	É UM REPOSITÓRIO REMOTO/WEB ONDE FICAM ARMAZENADOS OS PROJETOS VERSIONADOS PELO GIT
+	VALE LEMBRAR QUE GIT NÃO É A MESMA COISA QUE GITHUB
+	GIT É UM SISTEMA DE CONTROLE DE VERSÃO GITHUB E O LOCAL NA NUVEM ONDE VOCÊ PODE ARMAZENAR AS VERSÕES.
+
+
+//LINK PARA DOWNLOAD DO GIT
+	https://git-scm.com/download
+
+
+//COMO CONFIGURAR O GIT
+	1º-CONFIGURAR O USUÁRIO GLOBAL
+		git config --global user.name"seu_usuario"
+
+	2º-CONFIGURAR O E-MAIL
+		git config --global user.email"email_do_seu_usuario"
+
+	3º-DEFINIR O EDITOR PADRAO DO GIT (OPCIONAL)
+		git config --global core.editor editor_preferido
+
+
+//COMO SABER DETERMINADO VALOR INSERIDO NO CADASTRO ACIMA
+	git config user.name
+	git config user.email
+
+//COMANDO PARA INICIALIZAR O REPOSITORIO E VERIFICAR AS ALTERAÇÕES REALIADAS NO MESMO
+	/*o comando deve ser realizado dentro do diretorio onde estão sendo manipulados os arquivos*/
+	git init
+
+
+//PARA SABER TODAS AS INFORMACOES
+	git config --list
+
+
+//COMO VERIFICAR SE EXISTEM ALTERAÇÕES A SEREM COMITADAS DENTRO DE UMA PASTA OU ARQUIVO
+	git status
+
+
+//COMO ADICIONAR UM REPOSITORIO REMOTO PARA SUBIR OS COMMITS NO GITHUB
+	git remote add origin master https://github.com/diegotecinfo/git_github.git /*exemplo*/
+	git push -u origin master /*efetuar o upload dos arquivos para o repositorio remoto na web*/
+
+
+//APÓS REALIZAR AS ALTERAÇÕES NOS ARQUIVOS DEVE-SE REALIZAR OS SEGUINTES PASSOS PARA COMMITAR
+	git add anotacoes_git /*adicionado e preparado para commitar*/
+	git commit -m "mensagem" /*comitando o arquivo a clausula -m informa que você quer adicionar uma mensagem junto ao commit*/
+	git commit -am "mensagem" /*para commitar todos os arquivos modificados*/
+
+
+//COMANDO PARA VERIFICAR O HISTORICO DOS COMMITS
+	git log
+	git log --decorate
+	git log --author="diegotecinfo" /*filtra o historico de commits pelo autor*/
+	git shortlog /*lista por ordem alfabetica o historico de commits por autor e quais foram os commits realiados*/
+	git shortlog -sn /*lista a quantidade de commits por nome de quem realizou*/
+	git log --graph /*uma especie de visualização em modo grafico*/
+	git show 15792f21ebec3fc221bc5b04da92f838546d1729 /*git show "informar o hash" para verificar tudo que foi realizado no commit em questão*/
+
+
+//COMANDO PARA VERIFICAR TODAS AS ALTERAÇÕES REALIZADAS NO ARQUIVO ANTES MESMO DE COMMITA-LO
+	git diff
+	git diff --name-only /*verifica o nome do arquivo que foi alterado*/
+
+
+//COMANDO PARA DESFAZER ALTERAÇÕES
+	git checkout nome_do_arquivo
+	git reset HEAD nome_do_arquivo /*volta para o estado antes de adicionar para o commitar, sendo assim permitindo realizar alterações no mesmo*/
+	git reset --soft /*mata o commit - retorna um arquivo commitado para o status adicionado para commitado novamente*/
+	git reset --mixed /*mata o commit - retornar o arquivo para antes o status de modificado e não adicionado para commitar*/
+	git reset --hard /*mata o commit e exclui tudo o que foi feito nele*/
+
+	OS COMANDOS ACIMA DEVEM SER EXECUTADOS SEMPRE COM CONJUNTO COM O HASH ANTERIOR QUE DESEJA DESFAZER.
+
+
+//GERANDO A CHAVE SSH E ADICIONANDO A MESMA AO GITHUB
+	Link para dúvidas sobre o procedimento: https://help.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh
+
+	NO TERMINAL EXECUTE OS PROCEDIMENTOS ABAIXO
+
+	$ ssh-keygen -t rsa -b 4096 -C "diego.tecinfo@yahoo.com.br" /*o campo e-mail deve ser o mesmo criado no github*/
+		mensagem gerada após executar o comando acima : "> Generating public/private rsa key pair."
+
+	> Enter a file in which to save the key (/c/Users/you/.ssh/id_rsa):[Press enter] /*apenas pressione [ENTER]*/
+	> Enter passphrase (empty for no passphrase): [Type a passphrase] /*apenas pressione [ENTER]*/
+	> Enter same passphrase again: [Type passphrase again] /*apenas pressione [ENTER]*/
+
+	ABAIXO O DIRETORIO ONDE AS CHAVES SSH FICAM ARMAZENADAS:
+
+	cd ~/.ssh/  /*esse é o caminho do diretório*/
+
+	Efetue o comando ls para verificar as chaves contidas dentro do diretório
+	A chave que precisamos é a seguinte: id_rsa.pub
+	Para acessar a chave é necessario executar o comando cat juntamente da chave desejada, conforme demonstrado a seguir: cat id_rsa.pub
+		more id_rsa.pub /*funciona apenas se estiver executando de sua maquina local*/
+
+	APÓS REALIZAR OS PROCEDIMENTOS CITADOS ACIMA, ACESSO SEU GITHUB, NO CANTO SUPERIOR DIREITO CLIQUE NO SEU PERFIL
+		SETTINGS
+			SSH AND GPG KEYS
+				NEW SSH KEY
+					INSIRA A CHAVE E ADICIONE UM TITULO (POR QUESTÕES DE BOAS PRATICAS DEVE SE INFORMAR QUE/QUAL MAQUINA ESTÁ SENDO REALIZADO O PROCEDIMENTO)
+
+
+
+//LIGANDO REPOSITÓRIO LOCAL AO REPOSITÓRIO REMOTO
+
+	git remote add origin git@github.com:diegotecinfo/git-course.git /*após o paramentro ORIGIN inserimos o endereço do repositório, podemos utilizar o protocolo SSH ou HTTPS,
+	nete caso está sendo utilizado o SSH*/
+
+	git remote /*informa os repositorios existentes*/
+	git remote -v /*informa os repositorios existentes com maiores informações*/
+
+	DENTRO DO REPOSITÓRIO LOCAL DESEJADO, EXECUTAMOS O COMANDO ABAIXO PARA "SUBIR" A VERSÃO PARA O REPOSITÓRIO REMOTO.
+	git push -u origin master
+		parametro -u seta as informações para não digitar sempre o comando completo "origin master"
+		origin informa para onde vai sua versão
+		master informa de onde vem sua versão
+
+		AULA 16 NÃO INICIADA - GITHUB
+
+//CLONANDO REPOSITÓRIOS REMOTOS
+ 	DEVE SE PEGAR O ENDEREÇO DO REPOSITÓRIO DENTRO DO GITHUB E EXECUTAR O COMANDO ABAIXO
+
+ 	git clone git@github.com:diegotecinfo/git-course.git github-course-clone
+
+ 	git clone /*comando executado para clonar o projeto em sua maquina*/
+
+ 	git@github.com:diegotecinfo/git-course.git /*endereco do repositório remoto*/
+
+ 	github-course-clone /*nome do diretorio onde os arquivos serão clonados, lembrando que esse diretorio será criado se for parametrizado, caso contrário será clonado exatamente como é no repositório*/
+
+
+ // COMANDO FORK
+ 	ESSE COMANDO E UTILIZADO PARA FAZER UMA CÓPIA/CLONE DE UM PROJETO QUE NÃO É SEU, DE UM REPOSITÓRIO CRIADO POR OUTRO USUÁRIO
+ 	COM INTUÍTO DE CONTRIBUIR COM O MESMO, APLICANDO SEUS CONHECIMENTOS, CORRIGINDO BUGS E ETC.
+
+ 	ENTRE NO DIRETÓRIO DO PROJETO NO CANTO SUPERIOR DIREITO EXISTE UM BOTÃO CHAMADO FORK, CLIQUE NO MESMO E A COPIA É INICIADA.
+ 	A COPIA É FEITA DIRETAMENTE NO SEU REPOSITÓRIO REMOTO.
+
+
+// BRANCH - PONTEIRO MOVEL QUE LEVA UM COMMIT
+	USAMOS O BRANCH PARA EFETUAR OS PROCEDIMENTOS ABAIXO:
+
+	VANTAGENS
+	- MODIFICAR SEM ALTERAR O LOCAL PRINCIPAL (MASTER)
+	- FACILMENTE "DESLIGÁVEL"
+	- MULTIPLAS PESSOAS PODEM ESTAR TRABALHANDO EM BRANCH'S DIVERSOS
+	- EVITA CONFLITOS, PELO FATO DA POSSIBILIDADE DE SE TRABALHAR EM BRANCH'S DIFERENTES
+
+	COMANDO PARA CRIAR UM BRANCH
+
+	git checkout -b teste
+	O paramentro -b informa que um branch será criado e logo após deve ser inserido o nome do branch, neste caso TESTE.
+	Após isso verifique os branchs existentes com o comando git branch
+
+	NAVEGANDO ENTRE OS BRANCHS
+
+	git branch /*verifica os branchs existentes e qual está sendo utilizado*/
+	git checkout teste /*neste caso o parametro teste se refere ao branch que desejamos utilizar*/
+
+	DELETANDO UM BRANCH
+
+	git branch -D teste
+	O parametro -D informa que vamos deleter o branch
+	O parametro teste se refere ao branch que desejamos deletar
+
+
+// UNINDO BRANCHS - MERGE
+
+	BENEFICIOS DO MARGE
+	- OPERACAO NAO DESTRUTIVA
+		NÃO DESTRÓI NENHUM COMMIT, NÃO COMPROMETE A ORDEM CRONOLOGICA DOS HISTÓRICOS
+
+
+	MALEFÍCIOS
+	- CRIA UM COMMIT EXTRA
+	- HISTÓRICO POLUIDO
+
+// UNINDO BRANCHS - REBASE
+
+	BENEFICIOS DO REBASE
+	- NÃO CRIA COMMITS EXTRAS
+	- HISTÓRICO LINEAR
+
+	MALEFÍCIOS
+	-PERDE A ORDEM CRONOLÓGICA
+
+	PARA UTILIZAR OS RECURSOS ACIMA EXECUTE OS SEGUINTES COMANDOS:
+
+	git merge nome_do_branch
+	git rebase nome_do_branch
+
+	git --graph /*para verificar a estrutura do histórico apois utilizar MERGE ou REBASE*/
+
+	
+// GIT IGNORE
+
+	É UTILIZADO PARA IGNORAR DE UM OU MAIS ARQUIVO DENTRO DO SEU PROJETO, COMO POR EXEMPLO O ARQUIVO DS.STORE QUE É CRIADO NO MAC.
+	CRIE UM ARQUIVO CHAMADO .gitignore E DENTRO DELE ESPECÍFIQUE O QUE DESEJA IGNORAR
+
+	EXEMPLO:
+
+	CRIE O ARQUIVO .gitignore E DENTRO DELE ESPECÍFIQUE O QUE DESEJA IGNORAR
+	
+	*.json - O PARAMETRO * INFORMA QUE TODOS OS ARQUIVOS JSON DEVEM SER IGNORADOS
+
+	anotacoes_git.txt - NESTE CASO DEFINIMOS UM ARQUIVO EM ESPECÍFICO
+
+	*.txt - NESTE CASO DEFINIMOS TODOS OS ARQUIVOS COM EXTENSÃO TXT
+
+
+// GIT STASH
+
+	ARMANEZA AS ALTERAÇÕES DOS ARQUIVOS EM UMA ESPÉCIE DE CACHE TEMPORÁRIO, PARA QUE SEJA UTILIZADO POSTERIORMENTE.
+
+	git stash - O COMANDO ARMAZENA AS ALTERAÇÕES
+	git stash apply - RETORNAR AS ALTERAÇÕES PARA O PLANO DE TRABALHO
+	git stash list - MOSTRA A LISTA DE TODOS OS STASHS QUE ESTÃO SENDO REALIZADOS
+	git stash clear - LIMPA TUDO QUE ESTIVER DENTRO DO STASH
+
+// CRIANDO ALIAS (APELIDOS) PARA COMANDOS
+
+	git config --global alias.apelido_desejado comando que será realizado
+
+	EXEMPLO:
+
+	git config --global alias.apelido status
+
+
+// VERSIONANDO COM TAGS
+
+	git tag - VERIFICA TODAS AS TAGS CRIADAS
+
+	git tag -a 1.0.0 -m "mensagem_desejada"
+	git tag - COMANDO BASE
+	-a - PARAMETRO PARA INSERIR ALGUMA INFORMAÇÃO/COMENTÁRIO
+	1.0.0 - COMENTÁRIO/INFORMAÇÃO INSERIDA NO PARAMETRO -a
+	- m - PARAMENTRO PARA INSERIR UMA MENSAGEM
+
+	PARA UTILIZAR A TAGS EXECUTE O COMANDO ABAIXO
+
+	git push origin master --tags
+
+	APAGANDO TAGS
+	git tag -d 1.0.1
+	git push origin : 1.0.0
+
+
+// GIT REVERT
+	
+	APAGA AS ALTERAÇÕES FEITAS NO ULTIMO COMMIT, PORÉM NÃO APAGA O COMMIT
+	DEVE-SE INSERIR O COMANDO GIT REVERT E A HASH DESEJADA 
+
+	git log  - PARA IDENTIFICAR A HASH DESEJADA
+	git revert f8aa3f472da5cccb9fde6248bb4478bc39ff732f
+
+	UTILIZAR EM CONJUNTO COM GIT CHECKOUT SE NECESSÁRIO.
+
+
+	-- CHEGAMOS AO FIM DO CURSO --
